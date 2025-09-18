@@ -1,52 +1,56 @@
--- Tab system gắn vào menu đã có
-local gui = game.Players.LocalPlayer.PlayerGui:WaitForChild("NeonUI")
-local Main = gui:WaitForChild("Main")
-local Left = Main:WaitForChild("Left")
-local Right = Main:WaitForChild("Right")
+-- Thêm UIListLayout để sắp xếp nút tab
+local listLayout = Instance.new("UIListLayout", Left)
+listLayout.Padding = UDim.new(0, 5)
+listLayout.FillDirection = Enum.FillDirection.Vertical
+listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+listLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 
--- Tạo nút tab
-local function createTab(name, contentText)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, -10, 0, 40)
-    button.Position = UDim2.new(0, 5, 0, (#Left:GetChildren()-1) * 45) -- auto xuống hàng
-    button.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-    button.Text = name
-    button.TextColor3 = Color3.fromRGB(0, 255, 0)
-    button.Font = Enum.Font.GothamBold
-    button.TextSize = 18
-    button.Parent = Left
-    Instance.new("UICorner", button).CornerRadius = UDim.new(0, 6)
-    local stroke = Instance.new("UIStroke", button)
-    stroke.Thickness = 2
-    stroke.Color = Color3.fromRGB(0, 255, 0)
+-- Tạo function để tạo button tab
+local function createTab(name, callback)
+    local btn = Instance.new("TextButton", Left)
+    btn.Size = UDim2.new(1, -10, 0, 40)
+    btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    btn.TextColor3 = Color3.fromRGB(255,255,255)
+    btn.Text = name
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 16
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
 
-    -- Nội dung bên phải
-    local content = Instance.new("TextLabel")
-    content.Size = UDim2.new(1, -20, 1, -20)
-    content.Position = UDim2.new(0, 10, 0, 10)
-    content.BackgroundTransparency = 1
-    content.Text = contentText
-    content.TextColor3 = Color3.fromRGB(200, 200, 200)
-    content.Font = Enum.Font.Gotham
-    content.TextSize = 20
-    content.TextWrapped = true
-    content.Visible = false
-    content.Parent = Right
-
-    -- Chuyển tab
-    button.MouseButton1Click:Connect(function()
-        for _,v in pairs(Right:GetChildren()) do
-            if v:IsA("TextLabel") then
-                v.Visible = false
-            end
-        end
-        content.Visible = true
+    btn.MouseButton1Click:Connect(function()
+        callback()
     end)
 end
 
--- Tạo các tab mẫu
-createTab("Main", "Nội dung Main hiển thị ở đây")
-createTab("Item", "Danh sách Item")
-createTab("Stats", "Điểm chỉ số Stats")
-createTab("Race V4", "Nâng cấp Race V4")
-createTab("PVP", "Chế độ PvP")
+-- Tạo các tab
+createTab("Main", function()
+    Right:ClearAllChildren()
+    local label = Instance.new("TextLabel", Right)
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = "Nội dung Main hiển thị ở đây"
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 18
+end)
+
+createTab("Item", function()
+    Right:ClearAllChildren()
+    local label = Instance.new("TextLabel", Right)
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = "Nội dung Item ở đây"
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 18
+end)
+
+createTab("Stats", function()
+    Right:ClearAllChildren()
+    local label = Instance.new("TextLabel", Right)
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = "Nội dung Stats ở đây"
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 18
+end)
