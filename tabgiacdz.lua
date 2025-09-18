@@ -17,6 +17,7 @@ layout.SortOrder = Enum.SortOrder.LayoutOrder
 layout.Padding = UDim.new(0, 8)
 layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
+
 -- Hàm tạo nút tab với icon
 function createTabButton(name, iconText)
     local btn = Instance.new("TextButton")
