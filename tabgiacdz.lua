@@ -66,10 +66,8 @@ function createTabButton(name, iconText)
 end
 
 -- Tạo tab có icon
-local MainTab = createTabButton("Main", "⚔️")
+local MainTab = createTabButton("Main", "⚙")
 local ItemTab = createTabButton("Item", "📦")
-local ItemTab = createTabButton("profile", "👤")
-local ItemTab = createTabButton("Setting", "⚙")
 
 -- Global
 getgenv().Left = Left
