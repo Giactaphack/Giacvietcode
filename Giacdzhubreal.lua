@@ -27,7 +27,7 @@ Welcome:Destroy()
 
 -- Main Menu
 local Main = Instance.new("Frame", gui)
-Main.Size = UDim2.new(0, 500, 0, 320)
+Main.Size = UDim2.new(0, 520, 0, 300)
 Main.Position = UDim2.new(0.3, 0, 0.2, 0)
 Main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Main.BackgroundTransparency = 0.4
@@ -139,3 +139,4 @@ end
 -- Gán drag cho menu & icon
 makeDraggable(Main, Header) -- Kéo menu bằng Header
 makeDraggable(Icon, Icon)   -- Kéo icon bằng chính nó
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Giactaphack/Giacvietcode/refs/heads/main/tabgiacdz.lua"))()
