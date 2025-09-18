@@ -17,7 +17,7 @@ Welcome.BackgroundTransparency = 1
 Welcome.Text = "✨ Chào mừng đến với Giacdzhub ✨"
 Welcome.TextColor3 = Color3.fromRGB(0, 200, 255)
 Welcome.Font = Enum.Font.FredokaOne
-Welcome.TextSize = 32
+Welcome.TextSize = 30
 Welcome.TextTransparency = 1
 TweenService:Create(Welcome, TweenInfo.new(1), {TextTransparency = 0}):Play()
 task.wait(2)
@@ -27,7 +27,7 @@ Welcome:Destroy()
 
 -- Main Menu
 local Main = Instance.new("Frame", gui)
-Main.Size = UDim2.new(0, 520, 0, 300)
+Main.Size = UDim2.new(0, 580, 0, 330)
 Main.Position = UDim2.new(0.3, 0, 0.2, 0)
 Main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Main.BackgroundTransparency = 0.4
@@ -64,34 +64,47 @@ Close.MouseButton1Click:Connect(function()
 	Main.Visible = false
 end)
 
--- Left (tab)
+-- Left (tab list)
 local Left = Instance.new("Frame", Main)
-Left.Size = UDim2.new(0.25, 0, 1, -40)
-Left.Position = UDim2.new(0, 0, 0, 40)
-Left.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Left.Name = "Left"
+Left.Size = UDim2.new(0.25, 0, 1, -40)       -- rộng 20% menu
+Left.Position = UDim2.new(0, 0, 0, 40)     -- dính sát trái, dưới thanh tiêu đề
+Left.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Left.BackgroundTransparency = 0.3
-Instance.new("UICorner", Left).CornerRadius = UDim.new(0, 10)
 
--- Right (content)
+local cornerL = Instance.new("UICorner")
+cornerL.CornerRadius = UDim.new(0, 10)
+cornerL.Parent = Left
+
+-- để các nút tab xếp dọc
+local layout = Instance.new("UIListLayout", Left)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 5)
+
+-- Biến global để file tab thêm nút
+getgenv().Left = Left
+
+-- Right (content area)
 local Right = Instance.new("Frame", Main)
-Right.Size = UDim2.new(0.75, -10, 1, -40)
-Right.Position = UDim2.new(0.25, 10, 0, 40)
-Right.BackgroundColor3 = Color3.fromRGB(30,30,30)
+Right.Name = "Right"
+Right.Size = UDim2.new(0.75, -10, 1, -40)   -- chiếm 75% chiều ngang
+Right.Position = UDim2.new(0.25, 10, 0, 40) -- nằm bên phải Left
+Right.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Right.BackgroundTransparency = 0.3
 Instance.new("UICorner", Right).CornerRadius = UDim.new(0, 10)
-local Content = Instance.new("TextLabel", Right)
-Content.Size = UDim2.new(1, -20, 1, -20)
-Content.Position = UDim2.new(0, 10, 0, 10)
-Content.BackgroundTransparency = 1
-Content.Text = "Nội dung sẽ hiển thị ở đây..."
-Content.TextColor3 = Color3.fromRGB(200,200,200)
-Content.Font = Enum.Font.Gotham
-Content.TextSize = 20
-Content.TextWrapped = true
+
+-- Folder chứa tất cả nội dung tab
+local Pages = Instance.new("Folder")
+Pages.Name = "Pages"
+Pages.Parent = Right   -- nhớ gắn vào Right!
+
+-- Đưa ra global để file tab gọi được
+getgenv().Right = Right
+getgenv().Pages = Pages
 
 -- Icon toggle
 local Icon = Instance.new("ImageButton", gui)
-Icon.Size = UDim2.new(0, 50, 0, 50)
+Icon.Size = UDim2.new(0, 55, 0, 55)
 Icon.Position = UDim2.new(0.05, 0, 0.1, 0)
 Icon.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Icon.BackgroundTransparency = 0.4
