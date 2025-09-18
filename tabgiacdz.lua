@@ -11,11 +11,11 @@ local cornerL = Instance.new("UICorner")
 cornerL.CornerRadius = UDim.new(0, 10)
 cornerL.Parent = Left
 
--- Viền cam
-local strokeL = Instance.new("UIStroke")
-strokeL.Thickness = 2
-strokeL.Color = Color3.fromRGB(255, 165, 0)
-strokeL.Parent = Left
+-- layout dọc
+local layout = Instance.new("UIListLayout", Left)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 8)
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
 -- Hàm tạo nút tab với icon
 function createTabButton(name, iconText)
@@ -30,12 +30,6 @@ function createTabButton(name, iconText)
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0, 8)
     corner.Parent = btn
-
-    -- Viền cam
-    local stroke = Instance.new("UIStroke")
-    stroke.Thickness = 1.5
-    stroke.Color = Color3.fromRGB(255, 165, 0)
-    stroke.Parent = btn
 
     -- Icon label
     local icon = Instance.new("TextLabel")
@@ -72,8 +66,10 @@ function createTabButton(name, iconText)
 end
 
 -- Tạo tab có icon
-local MainTab = createTabButton("Main", "⚙")
+local MainTab = createTabButton("Main", "⚔️")
 local ItemTab = createTabButton("Item", "📦")
+local ItemTab = createTabButton("profile", "👤")
+local ItemTab = createTabButton("Setting", "⚙")
 
 -- Global
 getgenv().Left = Left
