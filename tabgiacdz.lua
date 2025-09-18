@@ -1,56 +1,44 @@
--- Thêm UIListLayout để sắp xếp nút tab
-local listLayout = Instance.new("UIListLayout", Left)
-listLayout.Padding = UDim.new(0, 5)
-listLayout.FillDirection = Enum.FillDirection.Vertical
-listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-listLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+-- tabgiacdz.lua
 
--- Tạo function để tạo button tab
-local function createTab(name, callback)
-    local btn = Instance.new("TextButton", Left)
-    btn.Size = UDim2.new(1, -10, 0, 40)
-    btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
-    btn.TextColor3 = Color3.fromRGB(255,255,255)
-    btn.Text = name
-    btn.Font = Enum.Font.GothamBold
-    btn.TextSize = 16
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
+-- Hàm tạo tab
+local function CreateTab(tabName, textContent)
+    -- Nút bên trái
+    local btn = Instance.new("TextButton")
+    btn.Name = tabName .. "_Button"
+    btn.Text = tabName
+    btn.Size = UDim2.new(1, -10, 0, 30)
+    btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Parent = getgenv().Left
 
+    -- Khung nội dung bên phải
+    local page = Instance.new("Frame")
+    page.Name = tabName .. "_Page"
+    page.Size = UDim2.new(1, 0, 1, 0)
+    page.BackgroundTransparency = 1
+    page.Visible = false
+    page.Parent = getgenv().Pages
+
+    -- Nội dung (TextLabel)
+    local label = Instance.new("TextLabel")
+    label.Text = textContent
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextSize = 24
+    label.Parent = page
+
+    -- Sự kiện click nút
     btn.MouseButton1Click:Connect(function()
-        callback()
+        -- Ẩn tất cả page
+        for _, p in pairs(getgenv().Pages:GetChildren()) do
+            p.Visible = false
+        end
+        -- Hiện page của tab này
+        page.Visible = true
     end)
 end
 
--- Tạo các tab
-createTab("Main", function()
-    Right:ClearAllChildren()
-    local label = Instance.new("TextLabel", Right)
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.Text = "Nội dung Main hiển thị ở đây"
-    label.TextColor3 = Color3.fromRGB(255,255,255)
-    label.Font = Enum.Font.Gotham
-    label.TextSize = 18
-end)
-
-createTab("Item", function()
-    Right:ClearAllChildren()
-    local label = Instance.new("TextLabel", Right)
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.Text = "Nội dung Item ở đây"
-    label.TextColor3 = Color3.fromRGB(255,255,255)
-    label.Font = Enum.Font.Gotham
-    label.TextSize = 18
-end)
-
-createTab("Stats", function()
-    Right:ClearAllChildren()
-    local label = Instance.new("TextLabel", Right)
-    label.Size = UDim2.new(1, 0, 1, 0)
-    label.BackgroundTransparency = 1
-    label.Text = "Nội dung Stats ở đây"
-    label.TextColor3 = Color3.fromRGB(255,255,255)
-    label.Font = Enum.Font.Gotham
-    label.TextSize = 18
-end)
+-- Tạo tab Main + tab Item
+CreateTab("Main", "Xin chào")
+CreateTab("Item", "Hello")
