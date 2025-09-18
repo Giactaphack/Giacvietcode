@@ -67,7 +67,7 @@ end)
 -- Left (tab list)
 local Left = Instance.new("Frame", Main)
 Left.Name = "Left"
-Left.Size = UDim2.new(0.25, 0, 1, -40)       -- rộng 20% menu
+Left.Size = UDim2.new(0.27, 0, 1, -40)       -- rộng 20% menu
 Left.Position = UDim2.new(0, 0, 0, 40)     -- dính sát trái, dưới thanh tiêu đề
 Left.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Left.BackgroundTransparency = 0.3
@@ -152,4 +152,3 @@ end
 -- Gán drag cho menu & icon
 makeDraggable(Main, Header) -- Kéo menu bằng Header
 makeDraggable(Icon, Icon)   -- Kéo icon bằng chính nó
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Giactaphack/Giacvietcode/refs/heads/main/tabgiacdz.lua"))()
